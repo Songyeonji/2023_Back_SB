@@ -25,7 +25,7 @@ public class UsrArticleController {
 		articleService.writeArticle(title, body);
 		
 		int id = articleService.getLastInsertId();
-
+		
 		return articleService.getArticleById(id);
 	}
 	
@@ -42,7 +42,7 @@ public class UsrArticleController {
 		Article article = articleService.getArticleById(id);
 		
 		if (article == null) {
-			return id + "번 게시물은 존재하지앙 않습니다";
+			return id + "번 게시물은 존재하지 않습니다";
 		}
 		
 		return article;
@@ -58,7 +58,7 @@ public class UsrArticleController {
 			return id + "번 게시물은 존재하지 않습니다";
 		}
 		
-		articleService.modifyArticle(article, title, body);
+		articleService.modifyArticle(id, title, body);
 		
 		return id + "번 게시물을 수정했습니다";
 	}
@@ -73,7 +73,7 @@ public class UsrArticleController {
 			return id + "번 게시물은 존재하지 않습니다";
 		}
 		
-		articleService.deleteArticle(article);
+		articleService.deleteArticle(id);
 		
 		return id + "번 게시물을 삭제했습니다";
 	}
