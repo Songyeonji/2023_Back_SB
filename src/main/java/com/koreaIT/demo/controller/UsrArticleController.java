@@ -78,4 +78,5 @@ public class UsrArticleController {
 		return id + "번 게시물을 삭제했습니다";
 	}
 	
+
 }
