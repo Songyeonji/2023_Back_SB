@@ -26,6 +26,10 @@ public class ArticleService {
 		return articleDao.getArticles();
 	}
 	
+	public Article forPrintArticle(int id) {
+		return articleDao.forPrintArticle(id);
+	}
+
 	public Article getArticleById(int id) {
 		return articleDao.getArticleById(id);
 	}
@@ -41,5 +45,7 @@ public class ArticleService {
 	public int getLastInsertId() {
 		return articleDao.getLastInsertId();
 	}
+
+	
 	
 }

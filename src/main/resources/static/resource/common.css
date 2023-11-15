@@ -21,3 +21,29 @@ html > body {
 	padding: 10px;
 	text-align: center; 
 }
+
+
+.table-box-type > table th {
+    background-color: rgb(165, 125, 208);
+    color: white;
+    
+}
+
+.table-box-type > table td {
+    background-color: rgb(243, 238, 247);
+    transition: background-color 0.3s ease;
+}
+
+.table-box-type > table td:hover {
+    background-color: rgb(223, 203, 243); /* 연한 하늘 색상 */
+}
+
+a {
+    color: rgb(194, 156, 233);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: rgb(64, 0, 128); /* hover 시 색상 변경 */
+}
