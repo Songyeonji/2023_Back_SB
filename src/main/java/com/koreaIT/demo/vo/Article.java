@@ -1,10 +1,12 @@
 package com.koreaIT.demo.vo;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Article {
 	private int id;
 	private String regDate;

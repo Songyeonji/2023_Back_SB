@@ -47,3 +47,12 @@ a:hover {
     text-decoration: underline;
     color: rgb(64, 0, 128); /* hover 시 색상 변경 */
 }
+
+.btns > .btn-text-color{
+	color: black;
+}
+
+.btns > .btn-text-color:hover{
+	color: blueviolet;
+	text-decoration: underline;
+}
