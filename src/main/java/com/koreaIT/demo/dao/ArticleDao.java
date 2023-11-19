@@ -35,6 +35,13 @@ public interface ArticleDao {
 	public List<Article> getArticles(int boardId);
 	
 	@Select("""
+			SELECT COUNT(*)
+				FROM article
+				WHERE boardId = #{boardId}
+			""")
+	public int getArticlesCnt(int boardId);
+	
+	@Select("""
 			SELECT A.*, M.name AS writerName
 				FROM article AS A
 				INNER JOIN `member` AS M

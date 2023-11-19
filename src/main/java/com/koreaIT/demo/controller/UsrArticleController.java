@@ -58,10 +58,13 @@ public class UsrArticleController {
 		
 		Board board = boardService.getBoardById(boardId);
 
+		int articlesCnt = articleService.getArticlesCnt(boardId);
+
 		List<Article> articles = articleService.getArticles(boardId);
 
 		
 		model.addAttribute("articles", articles);
+		model.addAttribute("articlesCnt", articlesCnt);
 		model.addAttribute("board", board);
 		
 		return "usr/article/list";
