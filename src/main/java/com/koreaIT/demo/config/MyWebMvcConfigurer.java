@@ -23,7 +23,8 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/rosource/**");
 
-		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/doWrite")
+		registry.addInterceptor(needLoginInterceptor)
+		.addPathPatterns("/usr/article/write").addPathPatterns("/usr/article/doWrite")
 		.addPathPatterns("/usr/article/modify").addPathPatterns("/usr/article/doModify")
 		.addPathPatterns("/usr/article/doDelete").addPathPatterns("/usr/member/doLogout");
 	}
