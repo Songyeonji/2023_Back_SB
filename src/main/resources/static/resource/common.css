@@ -16,12 +16,12 @@ html > body {
 	width: 100%;
 }
 
-.table-box-type > table th, .table-box-type > table td {
+/*.table-box-type > table th, .table-box-type > table td {
 	border: 1px solid black;
 	padding: 10px;
 	text-align: center; 
 }
-
+*/
 
 .table-box-type > table th {
     background-color: rgb(165, 125, 208);
@@ -54,5 +54,5 @@ a:hover {
 
 .btns > .btn-text-color:hover{
 	color: blueviolet;
-	text-decoration: underline;
+	
 }
