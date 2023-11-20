@@ -27,7 +27,6 @@ CREATE TABLE `member`(
     delDate DATETIME COMMENT '탈퇴 날짜'
 );
 
-
 CREATE TABLE board(
     id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
@@ -35,7 +34,6 @@ CREATE TABLE board(
     `code` VARCHAR(20) NOT NULL COMMENT 'notice(공지사항), free(자유), ...',
     `name` VARCHAR(20) NOT NULL COMMENT '게시판 이름'
 );
-
 
 INSERT INTO article
 SET regDate = NOW(),
@@ -56,6 +54,7 @@ title = '제목2',
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
+memberId = 2,
 boardId = 2,
 title = '제목3',
 `body` = '내용3';
@@ -94,9 +93,17 @@ updateDate = NOW(),
 `code` = 'free',
 `name` = '자유';
 
-
 SELECT * FROM article;
 SELECT * FROM `member`;
 SELECT * FROM board;
 
 SELECT LAST_INSERT_ID();
+
+/*
+insert into article
+(
+    regDate, updateDate, memberId, boardId, title, `body`
+)
+select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_', FLOOR(RAND() * 10000)), CONCAT('내용_', FLOOR(RAND() * 10000))
+from article;
+*/

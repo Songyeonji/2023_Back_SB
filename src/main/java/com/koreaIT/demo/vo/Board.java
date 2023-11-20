@@ -1,8 +1,8 @@
 package com.koreaIT.demo.vo;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -11,8 +11,6 @@ public class Board {
 	private int id;
 	private String regDate;
 	private String updateDate;
-	private int memberId;
-	private String title;
-	private String body;
-	private String writerName;
+	private String code;
+	private String name;
 }

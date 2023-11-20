@@ -13,7 +13,6 @@ import com.koreaIT.demo.vo.Article;
 @Mapper
 public interface ArticleDao {
 	
-
 	@Insert("""
 			INSERT INTO article
 				SET regDate = NOW()
@@ -24,7 +23,7 @@ public interface ArticleDao {
 					, `body` = #{body}
 			""")
 	public void writeArticle(int memberId, int boardId, String title, String body);
-
+	
 	@Select("""
 			SELECT A.*, M.name AS writerName
 				FROM article AS A
@@ -32,7 +31,7 @@ public interface ArticleDao {
 				ON A.memberId = M.id
 				WHERE A.boardId = #{boardId}
 				ORDER BY A.id DESC
-			""") 
+			""")
 	public List<Article> getArticles(int boardId);
 	
 	@Select("""
@@ -50,7 +49,7 @@ public interface ArticleDao {
 				WHERE A.id = #{id}
 			""")
 	public Article forPrintArticle(int id);
-
+	
 	@Select("""
 			SELECT * 
 				FROM article
@@ -74,7 +73,7 @@ public interface ArticleDao {
 	public void modifyArticle(int id, String title, String body);
 	
 	@Delete("""
-			DELET 
+			DELETE FROM article
 				WHERE id = #{id}
 			""")
 	public void deleteArticle(int id);
