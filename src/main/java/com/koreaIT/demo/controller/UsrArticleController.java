@@ -13,8 +13,11 @@ import com.koreaIT.demo.service.BoardService;
 import com.koreaIT.demo.util.Util;
 import com.koreaIT.demo.vo.Article;
 import com.koreaIT.demo.vo.Board;
-import com.koreaIT.demo.vo.ResultData;
 import com.koreaIT.demo.vo.Rq;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class UsrArticleController {
@@ -54,11 +57,8 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/list")
-	public String list(Model model, 
-			@RequestParam(defaultValue = "1") int boardId, 
-			@RequestParam(defaultValue = "1") int page,
-			@RequestParam(defaultValue = "title") String searchKeywordType, 
-			@RequestParam(defaultValue = "") String searchKeyword) {
+	public String list(Model model, @RequestParam(defaultValue = "1") int boardId, @RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "title") String searchKeywordType, @RequestParam(defaultValue = "") String searchKeyword) {
 		
 		if (page <= 0) {
 			return rq.jsReturnOnView("페이지번호가 올바르지 않습니다");
@@ -92,7 +92,34 @@ public class UsrArticleController {
 	}
 	
 	@RequestMapping("/usr/article/detail")
-	public String detail(Model model, int id) {
+	public String detail(HttpServletRequest req, HttpServletResponse resp, Model model, int id) {
+		
+		Cookie oldCookie = null;
+		Cookie[] cookies = req.getCookies();
+		
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("hitCount")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if (oldCookie != null) {
+			if (oldCookie.getValue().contains("[" + id + "]") == false) {
+				articleService.increaseHitCount(id);
+				oldCookie.setValue(oldCookie.getValue() + "_[" + id + "]");
+				oldCookie.setPath("/");
+				oldCookie.setMaxAge(5);
+				resp.addCookie(oldCookie);
+			}
+		} else {
+			articleService.increaseHitCount(id);
+			Cookie newCookie = new Cookie("hitCount", "[" + id + "]"); 
+			newCookie.setPath("/");
+			newCookie.setMaxAge(5);
+			resp.addCookie(newCookie);
+		}
 		
 		Article article = articleService.forPrintArticle(id);
 		
@@ -100,19 +127,6 @@ public class UsrArticleController {
 		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 		
 		return "usr/article/detail";
-	}
-	
-	@RequestMapping("/usr/article/doIncreaseHitCount")
-	@ResponseBody
-	public ResultData<Integer> doIncreaseHitCount(int id) {
-
-		ResultData<Integer> increaseHitCountRd = articleService.increaseHitCount(id);
-
-		if (increaseHitCountRd.isFail()) {
-			return increaseHitCountRd;
-		}
-
-		return ResultData.from(increaseHitCountRd.getResultCode(), increaseHitCountRd.getMsg(), articleService.getArticleHitCount(id));
 	}
 	
 	@RequestMapping("/usr/article/modify")

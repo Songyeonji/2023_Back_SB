@@ -10,6 +10,7 @@
 html > body {
 	font-family: 'NanumSquareNeo-Variable', sans-serif;
 	text-underline-position: under;
+
 }
 
 .table-box-type > table {
@@ -50,6 +51,7 @@ a:hover {
 
 .btns > .btn-text-color{
 	color: black;
+	background-color: #ffffff;
 }
 
 .btns > .btn-text-color:hover{
