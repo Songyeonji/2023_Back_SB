@@ -51,4 +51,8 @@ public class ArticleService {
 	public void increaseHitCount(int id) {
 		articleDao.increaseHitCount(id);
 	}
+
+
+		
+	
 }

@@ -1,8 +1,8 @@
 package com.koreaIT.demo.vo;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -14,6 +14,8 @@ public class Article {
 	private int memberId;
 	private String title;
 	private String body;
-	private String writerName;
 	private int hitCount;
+	private int point;
+	
+	private String writerName;
 }
