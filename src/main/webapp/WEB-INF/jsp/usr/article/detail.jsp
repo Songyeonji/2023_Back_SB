@@ -11,42 +11,24 @@
 			getRecommendPoint();
 			
 			$('#recommendBtn').click(function(){
+				let recommendBtn = $('#recommendBtn').hasClass('btn-active');
 				
-				let recommendBtn = $('#recommendBtn');
-				
-				if (recommendBtn.hasClass('btn-active')) {
-					$.ajax({
-						url: "../recommendPoint/deleteRecommendPoint",
-						method: "get",
-						data: {
-								"relTypeCode" : "article",
-								"relId" : ${article.id }
-							},
-						dataType: "text",
-						success: function(data) {
+				$.ajax({
+					url: "../recommendPoint/doRecommendPoint",
+					method: "get",
+					data: {
+							"relTypeCode" : "article",
+							"relId" : ${article.id },
+							"recommendBtn" : recommendBtn
+					dataType: "text",
+					success: function(data) {
 							console.log(data);
-						},
-						error: function(xhr, status, error) {
-							console.error("ERROR : " + status + " - " + error);
-						}
-					})
-				} else {
-					$.ajax({
-						url: "../recommendPoint/insertRecommendPoint",
-						method: "get",
-						data: {
-								"relTypeCode" : "article",
-								"relId" : ${article.id }
 							},
-						dataType: "text",
-						success: function(data) {
-							console.log(data);
-						},
-						error: function(xhr, status, error) {
+					error: function(xhr, status, error) {
 							console.error("ERROR : " + status + " - " + error);
-						}
-					})
-				}
+							}
+						})
+							
 				
 				location.reload();
 			})
