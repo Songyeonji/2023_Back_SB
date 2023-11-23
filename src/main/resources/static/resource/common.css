@@ -59,3 +59,7 @@ a:hover {
 	color: blueviolet;
 	
 }
+
+.border-bottom-line {
+	border-bottom: 1px solid #96948d;
+}
