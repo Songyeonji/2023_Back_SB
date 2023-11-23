@@ -91,6 +91,18 @@ public interface ArticleDao {
 			""")
 	public void increaseHitCount(int id);
 	
+	
+
+	    @Insert("""
+	            INSERT INTO recommendPoint
+	                SET regDate = NOW()
+	                    , updateDate = NOW()
+	                    , memberId = #{memberId}
+	                    , relTypeCode = #{relTypeCode}
+	                    , relId = #{relId}
+	                    , point = #{point}
+	            """)
+	    public void addRecommendPoint(int memberId, String relTypeCode, int relId, int point);
 	@Select("""
 			SELECT A.*
 				   , M.name AS writerName
@@ -104,6 +116,8 @@ public interface ArticleDao {
 				WHERE A.id = #{id}
 				GROUP BY A.id
 			""")
+	
+	
 	public Article forPrintArticle(int id);
 	
 	@Select("""
@@ -136,4 +150,5 @@ public interface ArticleDao {
 
 	@Select("SELECT LAST_INSERT_ID()")
 	public int getLastInsertId();
+
 }

@@ -127,7 +127,9 @@ public class UsrArticleController {
 		model.addAttribute("loginedMemberId", rq.getLoginedMemberId());
 		
 		return "usr/article/detail";
-	}
+	}	
+	
+	
 	
 	@RequestMapping("/usr/article/modify")
 	public String modify(Model model, int id) {

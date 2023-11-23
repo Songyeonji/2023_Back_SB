@@ -3,32 +3,76 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 	<c:set var="pageTitle" value="ARTICLE DETAIL" />
-
+	
 	<%@ include file="../common/head.jsp" %>
 	
 	<script>
-		const articleDetail_increaseHitCount = function(){
-			$.ajax({
-				url: "doIncreaseHitCount",
-				method: "get",
-				data: {"id": parseInt('${param.id }')},
-				dataType: "json",
-				success: function(data) {
-					$("#increaseHitCount").html(data.data);
-				},
-				error: function(xhr, status, error) {
-					console.error("ERROR : " + status + " - " + error);
-				}
-			})
-		}
-		
-		$(function(){
-			articleDetail_increaseHitCount();
+		$(document).ready(function(){
+			getRecommendPoint();
 			
-// 			setTimeout(articleDetail_increaseHitCount, 3000);
+			$('#recommendBtn').click(function(){
+				
+				let recommendBtn = $('#recommendBtn');
+				
+				if (recommendBtn.hasClass('btn-active')) {
+					$.ajax({
+						url: "../recommendPoint/deleteRecommendPoint",
+						method: "get",
+						data: {
+								"relTypeCode" : "article",
+								"relId" : ${article.id }
+							},
+						dataType: "text",
+						success: function(data) {
+							console.log(data);
+						},
+						error: function(xhr, status, error) {
+							console.error("ERROR : " + status + " - " + error);
+						}
+					})
+				} else {
+					$.ajax({
+						url: "../recommendPoint/insertRecommendPoint",
+						method: "get",
+						data: {
+								"relTypeCode" : "article",
+								"relId" : ${article.id }
+							},
+						dataType: "text",
+						success: function(data) {
+							console.log(data);
+						},
+						error: function(xhr, status, error) {
+							console.error("ERROR : " + status + " - " + error);
+						}
+					})
+				}
+				
+				location.reload();
+			})
 		})
+		
+		const getRecommendPoint = function(){
+				$.ajax({
+					url: "../recommendPoint/getRecommendPoint",
+					method: "get",
+					data: {
+							"relTypeCode" : "article",
+							"relId" : ${article.id }
+						},
+					dataType: "json",
+					success: function(data) {
+						if (data.success) {
+							$('#recommendBtn').addClass('btn-active');
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error("ERROR : " + status + " - " + error);
+					}
+				})
+			}
 	</script>
-
+	
 	<section class="mt-8 text-xl">
 		<div class="container mx-auto px-3">
 			<div class="table-box-type">
@@ -47,7 +91,7 @@
 					</tr>
 					<tr>
 						<th>조회수</th>
-						<td><span id="increaseHitCount">${article.hitCount }</span></td>
+						<td>${article.hitCount }</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -60,7 +104,7 @@
 								<span>${article.point }</span>
 							</c:if>
 							<c:if test="${rq.getLoginedMemberId() != 0 }">
-								<button class="mr-8 btn-text-color btn btn-outline btn-xs">좋아요👍</button>
+								<button id="recommendBtn" class="mr-8 btn-text-color btn btn-outline btn-xs">좋아요👍</button>
 								<span>좋아요 : ${article.point }개</span>
 							</c:if>
 						</td>
@@ -75,10 +119,10 @@
 					</tr>
 				</table>
 			</div>
-
-			<div class="btns">
+			
+			<div class="btns mt-2">
 				<button class="btn-text-color btn btn-outline btn-sm" onclick="history.back();">뒤로가기</button>
-
+				
 				<c:if test="${loginedMemberId != null && loginedMemberId == article.memberId }">
 					<a class="btn-text-color btn btn-outline btn-sm" href="modify?id=${article.id }">수정</a>
 					<a class="btn-text-color btn btn-outline btn-sm" href="doDelete?id=${article.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a>
@@ -86,5 +130,5 @@
 			</div>
 		</div>
 	</section>
-
+	
 	<%@ include file="../common/foot.jsp" %>

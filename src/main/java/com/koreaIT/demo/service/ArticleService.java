@@ -53,6 +53,12 @@ public class ArticleService {
 	}
 
 
+	public void addRecommendPoint(int memberId, String relTypeCode, int relId, int point) {
+	        articleDao.addRecommendPoint(memberId, relTypeCode, relId, point);
+	    }
+
+
+
 		
 	
 }
