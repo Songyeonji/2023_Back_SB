@@ -20,19 +20,20 @@
 							"relTypeCode" : "article",
 							"relId" : ${article.id },
 							"recommendBtn" : recommendBtn
+						},
 					dataType: "text",
 					success: function(data) {
-							console.log(data);
-							},
+						console.log(data);
+					},
 					error: function(xhr, status, error) {
-							console.error("ERROR : " + status + " - " + error);
-							}
-						})
-							
+						console.error("ERROR : " + status + " - " + error);
+					}
+				})
 				
 				location.reload();
 			})
 		})
+		
 		
 		const getRecommendPoint = function(){
 				$.ajax({
@@ -127,13 +128,28 @@
 		}
 	</script>
 	
-		<section class="my-5 text-base">
-			<div class="container mx-auto px-3">
+	<section class="my-5 text-base">
+		<div class="container mx-auto px-3">
 			<h2 class="text-lg">댓글</h2>
 			
 			<c:forEach var="reply" items="${replies }">
 				<div class="py-2 pl-16 border-bottom-line">
-					<div class="font-semibold">${reply.writerName }</div>
+					<div class="flex justify-between items-end">
+						<div class="font-semibold">${reply.writerName }</div>
+						
+						<c:if test="${rq.getLoginedMemberId() == reply.memberId }">
+							<div class="dropdown dropdown-end">
+								<button class="btn btn-circle btn-ghost btn-sm">
+						    		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path></svg>
+						    	</button>
+								<ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-20">
+									<li><a>수정</a></li>
+									<li><a href="../reply/doDelete?id=${reply.id }" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;">삭제</a></li>
+								</ul>
+							</div>
+						</c:if>
+						
+					</div>
 					<div class="my-1 text-lg ml-2">${reply.getForPrintBody() }</div>
 					<div class="text-xs text-gray-400">${reply.updateDate }</div>
 				</div>
@@ -144,7 +160,7 @@
 					<input name="relTypeCode" type="hidden" value="article" />
 					<input name="relId" type="hidden" value="${article.id }" />
 					<div class="mt-6 border border-gray-400 rounded-lg p-4">
-						<div class="mb-2"><span class="font-semibold">${nickname }</span></div>
+						<div class="mb-2"><span class="font-semibold">${member.getNickname() }</span></div>
 						<textarea class="textarea textarea-bordered w-full" name="body" placeholder="댓글을 입력해보세요"></textarea>
 						<div class="flex justify-end mt-1"><button class="btn-text-color btn btn-outline btn-sm">작성</button></div>
 					</div>
