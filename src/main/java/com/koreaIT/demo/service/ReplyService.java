@@ -29,7 +29,15 @@ public class ReplyService {
 	public Reply getReplyById(int id) {
 		return replyDao.getReplyById(id);
 	}
+	public Reply forPrintReply(int id) {
+		return replyDao.forPrintReply(id);
+	}
 
+
+	public void modifyReply(int id, String body) {
+		replyDao.modifyReply(id, body);
+	}
+	
 	public void deleteReply(int id) {
 		replyDao.deleteReply(id);
 	}
